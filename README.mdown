@@ -1,0 +1,6 @@
+Multibara
+=========
+
+Experiment with jRuby, threads and Capybara visiting different sites simultaneously.
+
+While `Capybara.app_host` is used to resolve relative url's, it is not used if an absolute URL is used. You can avoid needing to worry about `app_host` by ensuring all URL's are absolute.

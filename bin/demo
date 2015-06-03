@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+
+require 'capybara'
+require 'multibara'
+
+Capybara.app_host = 'http://www.worldofspectrum.org' # Lay the trap
+
+sites = %w(
+  http://news.ycombinator.com
+  http://www.thisweekincf.com
+)
+
+threads = sites.map do |site|
+  Thread.new {
+    singlebara = Multibara.new(site)
+    puts "#{site}: #{singlebara.title}" 
+    singlebara.each_subpage do |title|
+      puts "#{site}: #{title}"
+    end
+  }
+end
+
+threads.each(&:join)
